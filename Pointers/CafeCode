@@ -1,0 +1,40 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+	int cap = 250;
+	int lat = 200;
+	int esp = 150;
+	
+	int *ptrCap = &cap;
+	int *ptrLat = &lat;
+	int *ptrEsp = &esp;
+	
+	int capQ = 0;
+	int latQ = 0;
+	int espQ = 0;
+	
+	int *ptrCapQ = &capQ;
+	int *ptrLatQ = &latQ;
+	int *ptrEspQ = &espQ;
+	
+
+	cout<<"Enter quantity of Cappichinu"<<endl;
+	cin>>*ptrCapQ;
+	cout<<"Enter quantity of Latte"<<endl;
+	cin>>*ptrLatQ;
+	cout<<"Enter quantity of Espresso"<<endl;
+	cin>>*ptrEspQ;
+	
+	int Total_bill = (*ptrCapQ * *ptrCap)+(*ptrLatQ * *ptrLat)+(*ptrEspQ * *ptrEsp);
+	int *total = &Total_bill;
+	
+	cout<<"-------CAFE BILL-------"<<endl;
+	cout<<"CAPPICHINU ("<<*ptrCapQ<<"x"<<*ptrCap<<") ="<<*ptrCapQ * *ptrCap<<endl;
+	cout<<"LATTE ("<<*ptrLatQ<<"x"<<*ptrLat<<") ="<<*ptrLatQ * *ptrLat<<endl;
+	cout<<"ESPRESSO ("<<*ptrEspQ<<"x"<<*ptrEsp<<") ="<<*ptrEspQ * *ptrEsp<<endl; 
+	
+	cout<<"-----------------------"<<endl;
+	return 0;
+	
+}
