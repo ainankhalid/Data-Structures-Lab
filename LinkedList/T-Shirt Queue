@@ -1,0 +1,148 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct student{
+	int id;
+	string name;
+	int data;
+	student* next;
+	
+};
+
+student* front = nullptr;
+student* tail = nullptr;
+int count = 0;
+
+void AddStudent(){
+	student s;
+	cout<<"Enter student's Name"<<endl;
+	getline(cin, s.name);
+	cout<<"Enter student's id"<<endl;
+	cin>>s.id;
+	cin.ignore();
+	
+	student* newstudent = new student{s, nullptr};
+	
+	if (tail == nullptr){
+		front = tail = newstudent;
+	}
+	
+	else{
+		tail->next = newstudent;
+		tail = newstudent;
+	}
+	
+	count++;
+	cout<<s.name<<"ID:("<<s.id<<") added to the Queue"<<endl;
+}
+
+void servestudent(){
+	if(front == nullptr){
+		cout<<"The Queue is empty"<<endl;
+		return;
+	}
+	
+	student* temp = front;
+	cout<<front->data.name<<"ID:("<<front->data.id<<") has been served :)"<<endl;
+	front = front->next;
+	delete temp;
+	count--;
+	
+	if(front == nullptr){
+	tail = nullptr; 
+	}
+}
+
+void removebyID(){
+	if(front == nullptr){
+		cout<<"The Queue is Empty"<<endl;
+		return;
+	}
+	
+	int id;
+	cout<<"Enter the id of the student you want to remove"<<endl;
+	cin>>id;
+	cin.ignore();
+	
+	student* temp = front;
+	student* previous = nullptr;
+	
+	while(temp != nullptr && temp->data.id != id){
+		previous = temp;
+		temp = temp->next;
+	}
+	
+	if(temp == nullptr){
+		cout<<"No student found with that ID"<<id<<endl;
+		return;
+	}
+	
+	if(previous == nullptr){
+		front = temp->next;
+	}
+	
+	else{
+		previous->next = temp->next;
+	}
+	
+	if(temp == tail){
+		tail = previous;
+	}
+	cout <<temp->data.name<< "(ID: " << temp->data.id << ") left the queue"<<endl;
+    delete temp;
+    count--;
+}
+
+void displayQueue() {
+    if (front == nullptr) {
+        cout << "The queue is empty."<<endl;
+        return;
+    }
+    
+    student* temp = front;
+    cout << "\nCurrent queue:\n";
+    while (temp != nullptr) {
+        cout << "Name: " << temp->data.name << " | ID: " << temp->data.id << endl;
+        temp = temp->next;
+    }
+}
+
+void countStudents() {
+    cout << "Total students waiting: " << count << endl;
+}
+
+int main() {
+    int choice = 0;
+
+    cout << "***** Code-a-Thon Queue Management *****"<<endl;
+
+    while (choice != 6) {
+        cout << "1. Add Student"<<endl;
+        cout << "2. Serve Student"<<endl;
+        cout << "3. Student Leaves (Remove by ID)"<<endl;
+        cout << "4. Display Queue"<<endl;
+        cout << "5. Count Students"<<endl;
+        cout << "6. Exit"<<endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+        cin.ignore();
+        
+        
+        if (choice == 1)
+            AddStudent();
+        else if (choice == 2)
+            servestudent();
+        else if (choice == 3)
+            removebyID();
+        else if (choice == 4)
+            displayQueue();
+        else if (choice == 5)
+            countStudents();
+        else if (choice == 6)
+            cout << "Exiting program. Goodbye!"<<endl;
+        else
+            cout << "Invalid choice. Try again."<<endl;
+        }
+	return 0;
+}
